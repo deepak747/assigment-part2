@@ -1,0 +1,86 @@
+<div class="container">
+
+    <form [formGroup]="addPropertyFrom" (ngSubmit)="submit()">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="col-sm-6 col-form-label">Property Name</label>
+
+                    <input type="text" formControlName="name" placeholder="Enter Property name" class="form-control">
+                    <div class="text-danger"
+                        *ngIf="addPropertyFrom.get('name')?.hasError('required') && addPropertyFrom.get('name')?.touched">
+                        Property Name is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-4">
+                <textarea type="text" formControlName="description" class="form-control"
+                    placeholder="Enter description"></textarea>
+                <div class="text-danger"
+                    *ngIf="addPropertyFrom.get('description')?.hasError('required') && addPropertyFrom.get('description')?.touched">
+                    Description is required</div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="col-form-label">Length x Width</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <input type="number" formControlName="length" class="form-control" placeholder="Enter Length">
+                <div class="text-danger"
+                    *ngIf="addPropertyFrom.get('length')?.hasError('required') && addPropertyFrom.get('length')?.touched">
+                    Length is required
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <input type="number" formControlName="width" class="form-control" placeholder="Enter Width">
+                <div class="text-danger"
+                    *ngIf="addPropertyFrom.get('width')?.hasError('required') && addPropertyFrom.get('width')?.touched">
+                    Width is required</div>
+            </div>
+
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-4">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+
+    </form>
+
+
+
+</div>
+
+<table class="table table-success table-striped mt-2" *ngIf="propertyList?.length>0">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Length</th>
+            <th scope="col">Width</th>
+            <th scope="col">Size</th>
+            <th scope="col">Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of propertyList; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{data.name}}</td>
+            <td>{{data.description}}</td>
+            <td>{{data.length}}</td>
+            <td>{{data.width}}</td>
+            <td>{{data.width * data.length}}</td>
+            <div>
+                <button type="button" class="btn btn-danger" (click)="deletePropertyRecord(data.id)">Delete</button>
+            </div>
+
+        </tr>
+    </tbody>
+</table>
